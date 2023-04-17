@@ -6,6 +6,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <div>react app!</div>,
   },
+  {
+    path: "/signup",
+    element: <div>signup page!</div>,
+  },
 ]);
 
 function App() {
