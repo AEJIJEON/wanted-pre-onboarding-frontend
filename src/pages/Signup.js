@@ -9,8 +9,11 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { api } from "../apis/api";
+import { useNavigate } from "react-router-dom";
 
 export const Signup = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -20,6 +23,7 @@ export const Signup = () => {
   const submit = async () => {
     try {
       const res = await api.postSignup({ email, password });
+      navigate("/signin", { replace: true });
     } catch (e) {
       console.error(e);
     }
