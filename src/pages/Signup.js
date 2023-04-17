@@ -8,6 +8,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { api } from "../apis/api";
 
 export const Signup = () => {
   const [email, setEmail] = useState("");
@@ -15,6 +16,14 @@ export const Signup = () => {
 
   const isEmailValid = email.includes("@");
   const isPasswordValid = password.length >= 8;
+
+  const submit = async () => {
+    try {
+      const res = await api.postSignup({ email, password });
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <Center w="100%" p="20px">
@@ -44,6 +53,7 @@ export const Signup = () => {
         <Button
           type="submit"
           data-testid="signup-button"
+          onClick={submit}
           isDisabled={!isEmailValid || !isPasswordValid}>
           Submit
         </Button>
