@@ -1,5 +1,6 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Signup } from "./pages/Signup";
 
 const router = createBrowserRouter([
   {
@@ -8,7 +9,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/signup",
-    element: <div>signup page!</div>,
+    element: <Signup />,
   },
 ]);
 
