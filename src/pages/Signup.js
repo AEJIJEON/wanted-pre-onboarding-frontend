@@ -8,8 +8,9 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { api } from "../apis/api";
 import { useNavigate } from "react-router-dom";
+import { api } from "../apis/api";
+import { EmailInput } from "../components/EmailInput";
 
 export const Signup = () => {
   const navigate = useNavigate();
@@ -32,16 +33,11 @@ export const Signup = () => {
   return (
     <Center w="100%" p="20px">
       <VStack w="500px" spacing="10px">
-        <FormControl isRequired isInvalid={!isEmailValid}>
-          <FormLabel>Email</FormLabel>
-          <Input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            data-testid="email-input"
-          />
-          {isEmailValid ? null : <FormErrorMessage>@ 포함</FormErrorMessage>}
-        </FormControl>
+        <EmailInput
+          value={email}
+          isValid={isEmailValid}
+          onChange={(e) => setEmail(e.target.value)}
+        />
         <FormControl isRequired isInvalid={!isPasswordValid}>
           <FormLabel>Password</FormLabel>
           <Input
