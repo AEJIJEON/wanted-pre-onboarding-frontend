@@ -35,25 +35,7 @@ export const Todo = () => {
         </HStack>
         <UnorderedList w="500px" spacing="10px">
           {todos.map((todo) => (
-            <ListItem key={todo.id}>
-              <HStack>
-                <Checkbox
-                  flex="1"
-                  isChecked={todo.isCompleted}
-                  onChange={(e) => {
-                    updateTodo({
-                      ...todo,
-                      isCompleted: e.target.checked,
-                    });
-                  }}>
-                  {todo.todo}
-                </Checkbox>
-                <HStack>
-                  <Button data-testid="modify-button">수정</Button>
-                  <Button data-testid="delete-button">삭제</Button>
-                </HStack>
-              </HStack>
-            </ListItem>
+            <TodoItem key={todo.id} todo={todo} updateTodo={updateTodo} />
           ))}
           <ListItem>
             <HStack>
@@ -70,5 +52,29 @@ export const Todo = () => {
         </UnorderedList>
       </VStack>
     </Center>
+  );
+};
+
+const TodoItem = ({ todo, updateTodo }) => {
+  return (
+    <ListItem>
+      <HStack>
+        <Checkbox
+          flex="1"
+          isChecked={todo.isCompleted}
+          onChange={(e) => {
+            updateTodo({
+              ...todo,
+              isCompleted: e.target.checked,
+            });
+          }}>
+          {todo.todo}
+        </Checkbox>
+        <HStack>
+          <Button data-testid="modify-button">수정</Button>
+          <Button data-testid="delete-button">삭제</Button>
+        </HStack>
+      </HStack>
+    </ListItem>
   );
 };
