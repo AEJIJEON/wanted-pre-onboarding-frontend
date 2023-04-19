@@ -50,6 +50,9 @@ class ApiClient {
   async #put(path, data) {
     return await this.#request("PUT", path, data);
   }
+  async #delete(path) {
+    return await this.#request("DELETE", path);
+  }
   async postSignup(data) {
     return await this.#post("auth/signup", data);
   }
@@ -68,6 +71,10 @@ class ApiClient {
 
   async updateTodo(id, data) {
     return await this.#put(`todos/${id}`, data);
+  }
+
+  async deleteTodo(id) {
+    return await this.#delete(`todos/${id}`);
   }
 }
 

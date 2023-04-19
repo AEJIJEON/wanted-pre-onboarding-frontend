@@ -39,6 +39,15 @@ export const useTodos = () => {
     }
   };
 
+  const deleteTodo = async (id) => {
+    try {
+      await apiClient.deleteTodo(id);
+      await refetchTodos();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   useEffect(() => {
     fetchTodos();
   }, []);
@@ -47,5 +56,6 @@ export const useTodos = () => {
     todos,
     createTodo,
     updateTodo,
+    deleteTodo,
   };
 };

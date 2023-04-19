@@ -12,7 +12,7 @@ import { useState } from "react";
 import { useTodos } from "../hooks/useTodos";
 
 export const Todo = () => {
-  const { todos, createTodo, updateTodo } = useTodos();
+  const { todos, createTodo, updateTodo, deleteTodo } = useTodos();
 
   const [newTodo, setNewTodo] = useState("");
 
@@ -35,7 +35,12 @@ export const Todo = () => {
         </HStack>
         <UnorderedList w="500px" spacing="10px">
           {todos.map((todo) => (
-            <TodoItem key={todo.id} todo={todo} updateTodo={updateTodo} />
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              updateTodo={updateTodo}
+              deleteTodo={deleteTodo}
+            />
           ))}
         </UnorderedList>
       </VStack>
@@ -43,7 +48,7 @@ export const Todo = () => {
   );
 };
 
-const TodoItem = ({ todo, updateTodo }) => {
+const TodoItem = ({ todo, updateTodo, deleteTodo }) => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [newTodo, setNewTodo] = useState(todo.todo);
 
@@ -60,6 +65,10 @@ const TodoItem = ({ todo, updateTodo }) => {
       todo: newTodo,
     });
     setIsEditMode(false);
+  };
+
+  const handleDelete = async () => {
+    await deleteTodo(todo.id);
   };
 
   return (
@@ -105,7 +114,9 @@ const TodoItem = ({ todo, updateTodo }) => {
               data-testid="modify-button">
               수정
             </Button>
-            <Button data-testid="delete-button">삭제</Button>
+            <Button onClick={handleDelete} data-testid="delete-button">
+              삭제
+            </Button>
           </HStack>
         </HStack>
       )}
