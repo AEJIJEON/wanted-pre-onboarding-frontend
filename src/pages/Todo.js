@@ -27,7 +27,9 @@ export const Todo = () => {
           />
           <Button
             data-testid="new-todo-add-button"
-            onClick={() => createTodo(newTodo)}>
+            onClick={() => {
+              if (newTodo.length > 0) createTodo(newTodo);
+            }}>
             추가
           </Button>
         </HStack>
