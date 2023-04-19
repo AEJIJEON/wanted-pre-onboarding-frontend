@@ -18,8 +18,11 @@ export const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const isEmailValid = email.includes("@");
-  const isPasswordValid = password.length >= 8;
+  const {
+    isFormValid,
+    email: emailValidation,
+    password: passwordValidation,
+  } = useFormValidation({ email, password });
 
   const submit = async () => {
     try {
@@ -35,11 +38,11 @@ export const Signup = () => {
       <VStack w="500px" spacing="10px">
         <EmailInput
           value={email}
-          isValid={isEmailValid}
+          isValid={emailValidation.isValid}
           onChange={(e) => setEmail(e.target.value)}
           errorMessage={"@포함"}
         />
-        <FormControl isRequired isInvalid={!isPasswordValid}>
+        <FormControl isRequired isInvalid={!isFormValid}>
           <FormLabel>Password</FormLabel>
           <Input
             type="password"
@@ -47,18 +50,37 @@ export const Signup = () => {
             onChange={(e) => setPassword(e.target.value)}
             data-testid="password-input"
           />
-          {isPasswordValid ? null : (
-            <FormErrorMessage>8자 이상</FormErrorMessage>
+          {passwordValidation.isValid ? null : (
+            <FormErrorMessage>
+              {passwordValidation.errorMessage}
+            </FormErrorMessage>
           )}
         </FormControl>
         <Button
           type="submit"
           data-testid="signup-button"
           onClick={submit}
-          isDisabled={!isEmailValid || !isPasswordValid}>
+          isDisabled={!isFormValid}>
           Submit
         </Button>
       </VStack>
     </Center>
   );
+};
+
+const useFormValidation = ({ email, password }) => {
+  const isEmailValid = email.includes("@");
+  const isPasswordValid = password.length >= 8;
+
+  return {
+    isFormValid: isEmailValid && isPasswordValid,
+    email: {
+      isValid: isEmailValid,
+      errorMessage: "@ 포함",
+    },
+    password: {
+      isValid: isPasswordValid,
+      errorMessage: "8자 이상",
+    },
+  };
 };
