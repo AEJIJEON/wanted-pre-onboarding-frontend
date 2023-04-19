@@ -30,9 +30,9 @@ export const useTodos = () => {
     }
   };
 
-  const updateTodo = async (todo) => {
+  const updateTodo = async (id, data) => {
     try {
-      await apiClient.updateTodo(todo.id, todo);
+      await apiClient.updateTodo(id, data);
       await refetchTodos();
     } catch (e) {
       console.error(e);

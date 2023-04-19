@@ -53,14 +53,14 @@ const TodoItem = ({ todo, updateTodo, deleteTodo }) => {
   const [newTodo, setNewTodo] = useState(todo.todo);
 
   const handleCheckBox = (checked) => {
-    updateTodo({
+    updateTodo(todo.id, {
       ...todo,
       isCompleted: checked,
     });
   };
 
   const handleSubmit = async () => {
-    await updateTodo({
+    await updateTodo(todo.id, {
       ...todo,
       todo: newTodo,
     });
