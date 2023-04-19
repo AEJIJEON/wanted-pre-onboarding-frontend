@@ -11,6 +11,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../apis/api";
 import { EmailInput } from "../components/EmailInput";
+import { useFormValidation } from "../hooks/useFormValidation";
 
 export const Signup = () => {
   const navigate = useNavigate();
@@ -66,21 +67,4 @@ export const Signup = () => {
       </VStack>
     </Center>
   );
-};
-
-const useFormValidation = ({ email, password }) => {
-  const isEmailValid = email.includes("@");
-  const isPasswordValid = password.length >= 8;
-
-  return {
-    isFormValid: isEmailValid && isPasswordValid,
-    email: {
-      isValid: isEmailValid,
-      errorMessage: "@ 포함",
-    },
-    password: {
-      isValid: isPasswordValid,
-      errorMessage: "8자 이상",
-    },
-  };
 };
