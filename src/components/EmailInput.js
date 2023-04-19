@@ -5,7 +5,7 @@ import {
   Input,
 } from "@chakra-ui/react";
 
-export const EmailInput = ({ value, isValid, onChange }) => {
+export const EmailInput = ({ value, isValid, onChange, errorMessage }) => {
   return (
     <FormControl isRequired isInvalid={!isValid}>
       <FormLabel>Email</FormLabel>
@@ -15,7 +15,7 @@ export const EmailInput = ({ value, isValid, onChange }) => {
         onChange={onChange}
         data-testid="email-input"
       />
-      {isValid ? null : <FormErrorMessage>@ 포함</FormErrorMessage>}
+      {isValid ? null : <FormErrorMessage>{errorMessage}</FormErrorMessage>}
     </FormControl>
   );
 };

@@ -37,6 +37,7 @@ export const Signup = () => {
           value={email}
           isValid={isEmailValid}
           onChange={(e) => setEmail(e.target.value)}
+          errorMessage={"@포함"}
         />
         <FormControl isRequired isInvalid={!isPasswordValid}>
           <FormLabel>Password</FormLabel>
