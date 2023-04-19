@@ -1,5 +1,10 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import {
+  Navigate,
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
+import { AuthGuard } from "./components/AuthGuard";
 import { useAuth } from "./hooks/useAuth";
 import { Signin } from "./pages/Signin";
 import { Signup } from "./pages/Signup";
@@ -12,15 +17,31 @@ const router = createBrowserRouter([
   },
   {
     path: "/signup",
-    element: <Signup />,
+    element: (
+      <AuthGuard>
+        <Signup />
+      </AuthGuard>
+    ),
   },
   {
     path: "/signin",
-    element: <Signin />,
+    element: (
+      <AuthGuard>
+        <Signin />
+      </AuthGuard>
+    ),
   },
   {
     path: "/todo",
-    element: <Todo />,
+    element: (
+      <AuthGuard restricted>
+        <Todo />
+      </AuthGuard>
+    ),
+  },
+  {
+    path: "*",
+    element: <Navigate to="/signin" />,
   },
 ]);
 

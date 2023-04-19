@@ -19,5 +19,8 @@ export const useAuth = () => {
       localStorage.removeItem("access_token");
     }
   };
-  return { setAuth, initializeAuth };
+
+  const authed = apiClient.userToken !== undefined;
+
+  return { authed, setAuth, initializeAuth };
 };
