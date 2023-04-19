@@ -40,6 +40,10 @@ class API {
   async postSignup(data) {
     return await this.#post("auth/signup", data);
   }
+
+  async postSignin(data) {
+    return await this.#post("auth/signin", data);
+  }
 }
 
 export const api = new API({
