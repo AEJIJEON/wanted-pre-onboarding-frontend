@@ -26,8 +26,11 @@ export const Todo = () => {
           />
           <Button
             data-testid="new-todo-add-button"
-            onClick={() => {
-              if (newTodo.length > 0) createTodo(newTodo);
+            onClick={async () => {
+              if (newTodo.length > 0) {
+                await createTodo(newTodo);
+                setNewTodo("");
+              }
             }}>
             추가
           </Button>
