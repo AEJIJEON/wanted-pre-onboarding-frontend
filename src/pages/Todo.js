@@ -12,39 +12,9 @@ import { useEffect, useState } from "react";
 import { apiClient } from "../apis/apiClient";
 
 export const Todo = () => {
-  const [todos, setTodos] = useState([]);
+  const { todos, createTodo } = useTodos();
+
   const [newTodo, setNewTodo] = useState("");
-
-  const getTodos = async () => {
-    try {
-      const todosData = await apiClient.getTodos();
-      setTodos(todosData);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  const refetchTodos = async () => {
-    try {
-      const todosData = await getTodos();
-      setTodos(todosData);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  const createTodo = async (todo) => {
-    try {
-      await apiClient.createTodo({ todo: newTodo });
-      await refetchTodos();
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  useEffect(() => {
-    getTodos();
-  }, []);
 
   return (
     <Center w="100%" p="20px">
@@ -55,7 +25,9 @@ export const Todo = () => {
             value={newTodo}
             onChange={(e) => setNewTodo(e.target.value)}
           />
-          <Button data-testid="new-todo-add-button" onClick={createTodo}>
+          <Button
+            data-testid="new-todo-add-button"
+            onClick={() => createTodo(newTodo)}>
             추가
           </Button>
         </HStack>
@@ -89,4 +61,43 @@ export const Todo = () => {
       </VStack>
     </Center>
   );
+};
+
+const useTodos = () => {
+  const [todos, setTodos] = useState([]);
+
+  const fetchTodos = async () => {
+    try {
+      const todosData = await apiClient.getTodos();
+      setTodos(todosData);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const refetchTodos = async () => {
+    try {
+      await fetchTodos();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const createTodo = async (todo) => {
+    try {
+      await apiClient.createTodo({ todo });
+      await refetchTodos();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => {
+    fetchTodos();
+  }, []);
+
+  return {
+    todos,
+    createTodo,
+  };
 };
