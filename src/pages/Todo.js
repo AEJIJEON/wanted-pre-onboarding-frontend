@@ -54,6 +54,14 @@ const TodoItem = ({ todo, updateTodo }) => {
     });
   };
 
+  const handleSubmit = async () => {
+    await updateTodo({
+      ...todo,
+      todo: newTodo,
+    });
+    setIsEditMode(false);
+  };
+
   return (
     <ListItem>
       {isEditMode ? (
@@ -70,15 +78,7 @@ const TodoItem = ({ todo, updateTodo }) => {
             />
           </HStack>
           <HStack>
-            <Button
-              onClick={async () => {
-                await updateTodo({
-                  ...todo,
-                  todo: newTodo,
-                });
-                setIsEditMode(false);
-              }}
-              data-testid="submit-button">
+            <Button onClick={handleSubmit} data-testid="submit-button">
               제출
             </Button>
             <Button
