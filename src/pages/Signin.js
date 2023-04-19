@@ -1,5 +1,6 @@
 import { Button, Center, VStack } from "@chakra-ui/react";
 import { useState } from "react";
+import { api } from "../apis/api";
 import { EmailInput } from "../components/EmailInput";
 import { PasswordInput } from "../components/PasswordInput";
 import { useFormValidation } from "../hooks/useFormValidation";
@@ -13,6 +14,14 @@ export const Signin = () => {
     email: emailValidation,
     password: passwordValidation,
   } = useFormValidation({ email, password });
+
+  const submit = async () => {
+    try {
+      const { access_token } = await api.postSignin({ email, password });
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <Center w="100%" p="20px">
@@ -32,7 +41,7 @@ export const Signin = () => {
         <Button
           type="submit"
           data-testid="signin-button"
-          onClick={() => {}}
+          onClick={submit}
           isDisabled={!isFormValid}>
           Submit
         </Button>
