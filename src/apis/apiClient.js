@@ -47,6 +47,9 @@ class ApiClient {
   async #post(path, data) {
     return await this.#request("POST", path, data);
   }
+  async #put(path, data) {
+    return await this.#request("PUT", path, data);
+  }
   async postSignup(data) {
     return await this.#post("auth/signup", data);
   }
@@ -61,6 +64,10 @@ class ApiClient {
 
   async createTodo(data) {
     return await this.#post("todos", data);
+  }
+
+  async updateTodo(id, data) {
+    return await this.#put(`todos/${id}`, data);
   }
 }
 

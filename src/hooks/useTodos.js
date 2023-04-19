@@ -30,6 +30,15 @@ export const useTodos = () => {
     }
   };
 
+  const updateTodo = async (todo) => {
+    try {
+      await apiClient.updateTodo(todo.id, todo);
+      await refetchTodos();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   useEffect(() => {
     fetchTodos();
   }, []);
@@ -37,5 +46,6 @@ export const useTodos = () => {
   return {
     todos,
     createTodo,
+    updateTodo,
   };
 };

@@ -12,7 +12,7 @@ import { useState } from "react";
 import { useTodos } from "../hooks/useTodos";
 
 export const Todo = () => {
-  const { todos, createTodo } = useTodos();
+  const { todos, createTodo, updateTodo } = useTodos();
 
   const [newTodo, setNewTodo] = useState("");
 
@@ -37,7 +37,15 @@ export const Todo = () => {
           {todos.map((todo) => (
             <ListItem key={todo.id}>
               <HStack>
-                <Checkbox flex="1" isChecked={todo.isCompleted}>
+                <Checkbox
+                  flex="1"
+                  isChecked={todo.isCompleted}
+                  onChange={(e) => {
+                    updateTodo({
+                      ...todo,
+                      isCompleted: e.target.checked,
+                    });
+                  }}>
                   {todo.todo}
                 </Checkbox>
                 <HStack>
