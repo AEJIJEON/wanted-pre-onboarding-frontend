@@ -1,6 +1,15 @@
 import { apiClient } from "../apis/apiClient";
 
 export const useAuth = () => {
+  const initializeAuth = () => {
+    const jwt = localStorage.getItem("access_token");
+    if (jwt) {
+      apiClient.userToken = jwt;
+    } else {
+      apiClient.userToken = undefined;
+    }
+  };
+
   const setAuth = (jwt) => {
     if (jwt) {
       apiClient.userToken = jwt;
@@ -10,5 +19,5 @@ export const useAuth = () => {
       localStorage.removeItem("access_token");
     }
   };
-  return { setAuth };
+  return { setAuth, initializeAuth };
 };
