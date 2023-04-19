@@ -3,6 +3,7 @@ import {
   Center,
   HStack,
   Input,
+  Text,
   UnorderedList,
   VStack,
 } from "@chakra-ui/react";
@@ -16,7 +17,10 @@ export const Todo = () => {
   const [newTodo, setNewTodo] = useState("");
 
   return (
-    <Center w="100%" p="20px">
+    <Center w="100%" p="20px" flexDir="column">
+      <Text fontSize="30" fontWeight="700" mb="20px">
+        Todo!
+      </Text>
       <VStack spacing="30px">
         <HStack w="full">
           <Input

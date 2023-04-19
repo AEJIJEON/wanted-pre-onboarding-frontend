@@ -1,4 +1,4 @@
-import { Button, Center, VStack } from "@chakra-ui/react";
+import { Button, Center, Text, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiClient } from "../apis/apiClient";
@@ -28,7 +28,10 @@ export const Signup = () => {
   };
 
   return (
-    <Center w="100%" p="20px">
+    <Center w="100%" p="20px" flexDir="column">
+      <Text fontSize="30" fontWeight="700" mb="20px">
+        SignUp!
+      </Text>
       <VStack w="500px" spacing="10px">
         <EmailInput
           value={email}
