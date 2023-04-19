@@ -8,8 +8,25 @@ import {
   UnorderedList,
   VStack,
 } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { apiClient } from "../apis/apiClient";
 
 export const Todo = () => {
+  const [todos, setTodos] = useState([]);
+
+  const getTodos = async () => {
+    try {
+      const todosData = await apiClient.getTodos();
+      setTodos(todosData);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => {
+    getTodos();
+  }, []);
+
   return (
     <Center w="100%" p="20px">
       <VStack spacing="30px">
@@ -18,15 +35,19 @@ export const Todo = () => {
           <Button data-testid="new-todo-add-button">추가</Button>
         </HStack>
         <UnorderedList w="500px" spacing="10px">
-          <ListItem>
-            <HStack>
-              <Checkbox flex="1">TODO 1</Checkbox>
+          {todos.map((todo) => (
+            <ListItem key={todo.id}>
               <HStack>
-                <Button data-testid="modify-button">수정</Button>
-                <Button data-testid="delete-button">삭제</Button>
+                <Checkbox flex="1" isChecked={todo.isCompleted}>
+                  {todo.todo}
+                </Checkbox>
+                <HStack>
+                  <Button data-testid="modify-button">수정</Button>
+                  <Button data-testid="delete-button">삭제</Button>
+                </HStack>
               </HStack>
-            </HStack>
-          </ListItem>
+            </ListItem>
+          ))}
           <ListItem>
             <HStack>
               <HStack flex="1">

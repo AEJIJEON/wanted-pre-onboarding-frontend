@@ -41,7 +41,9 @@ class ApiClient {
       throw e;
     }
   }
-
+  async #get(path) {
+    return await this.#request("GET", path);
+  }
   async #post(path, data) {
     return await this.#request("POST", path, data);
   }
@@ -51,6 +53,10 @@ class ApiClient {
 
   async postSignin(data) {
     return await this.#post("auth/signin", data);
+  }
+
+  async getTodos() {
+    return await this.#get("todos");
   }
 }
 
