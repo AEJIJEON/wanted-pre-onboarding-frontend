@@ -45,19 +45,45 @@ export const Todo = () => {
 
 const TodoItem = ({ todo, updateTodo }) => {
   const [isEditMode, setIsEditMode] = useState(false);
+  const [newTodo, setNewTodo] = useState(todo.todo);
 
   return (
     <ListItem>
       {isEditMode ? (
         <HStack>
           <HStack flex="1">
-            <Checkbox />
-            <Input data-testid="modify-input" />
+            <Checkbox
+              isChecked={todo.isCompleted}
+              onChange={(e) => {
+                updateTodo({
+                  ...todo,
+                  isCompleted: e.target.checked,
+                });
+              }}
+            />
+            <Input
+              value={newTodo}
+              onChange={(e) => setNewTodo(e.target.value)}
+              data-testid="modify-input"
+            />
           </HStack>
           <HStack>
-            <Button data-testid="submit-button">제출</Button>
             <Button
-              onClick={() => setIsEditMode(false)}
+              onClick={async () => {
+                await updateTodo({
+                  ...todo,
+                  todo: newTodo,
+                });
+                setIsEditMode(false);
+              }}
+              data-testid="submit-button">
+              제출
+            </Button>
+            <Button
+              onClick={() => {
+                setIsEditMode(false);
+                setNewTodo(todo.todo);
+              }}
               data-testid="cancel-button">
               취소
             </Button>
