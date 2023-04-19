@@ -4,8 +4,11 @@ import { api } from "../apis/api";
 import { EmailInput } from "../components/EmailInput";
 import { PasswordInput } from "../components/PasswordInput";
 import { useFormValidation } from "../hooks/useFormValidation";
+import { useNavigate } from "react-router-dom";
 
 export const Signin = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -19,6 +22,7 @@ export const Signin = () => {
     try {
       const { access_token } = await api.postSignin({ email, password });
       localStorage.setItem("access_token", access_token);
+      navigate("/todo");
     } catch (e) {
       console.error(e);
     }
