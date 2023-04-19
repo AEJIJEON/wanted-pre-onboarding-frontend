@@ -18,6 +18,7 @@ export const Signin = () => {
   const submit = async () => {
     try {
       const { access_token } = await api.postSignin({ email, password });
+      localStorage.setItem("access_token", access_token);
     } catch (e) {
       console.error(e);
     }
