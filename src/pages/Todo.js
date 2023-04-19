@@ -37,18 +37,6 @@ export const Todo = () => {
           {todos.map((todo) => (
             <TodoItem key={todo.id} todo={todo} updateTodo={updateTodo} />
           ))}
-          <ListItem>
-            <HStack>
-              <HStack flex="1">
-                <Checkbox />
-                <Input data-testid="modify-input" />
-              </HStack>
-              <HStack>
-                <Button data-testid="submit-button">제출</Button>
-                <Button data-testid="cancel-button">취소</Button>
-              </HStack>
-            </HStack>
-          </ListItem>
         </UnorderedList>
       </VStack>
     </Center>
@@ -56,25 +44,48 @@ export const Todo = () => {
 };
 
 const TodoItem = ({ todo, updateTodo }) => {
+  const [isEditMode, setIsEditMode] = useState(false);
+
   return (
     <ListItem>
-      <HStack>
-        <Checkbox
-          flex="1"
-          isChecked={todo.isCompleted}
-          onChange={(e) => {
-            updateTodo({
-              ...todo,
-              isCompleted: e.target.checked,
-            });
-          }}>
-          {todo.todo}
-        </Checkbox>
+      {isEditMode ? (
         <HStack>
-          <Button data-testid="modify-button">수정</Button>
-          <Button data-testid="delete-button">삭제</Button>
+          <HStack flex="1">
+            <Checkbox />
+            <Input data-testid="modify-input" />
+          </HStack>
+          <HStack>
+            <Button data-testid="submit-button">제출</Button>
+            <Button
+              onClick={() => setIsEditMode(false)}
+              data-testid="cancel-button">
+              취소
+            </Button>
+          </HStack>
         </HStack>
-      </HStack>
+      ) : (
+        <HStack>
+          <Checkbox
+            flex="1"
+            isChecked={todo.isCompleted}
+            onChange={(e) => {
+              updateTodo({
+                ...todo,
+                isCompleted: e.target.checked,
+              });
+            }}>
+            {todo.todo}
+          </Checkbox>
+          <HStack>
+            <Button
+              onClick={() => setIsEditMode(true)}
+              data-testid="modify-button">
+              수정
+            </Button>
+            <Button data-testid="delete-button">삭제</Button>
+          </HStack>
+        </HStack>
+      )}
     </ListItem>
   );
 };
