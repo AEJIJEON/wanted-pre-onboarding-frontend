@@ -43,7 +43,7 @@ export const Signup = () => {
           onChange={(e) => setEmail(e.target.value)}
           errorMessage={emailValidation.errorMessage}
         />
-        <FormControl isRequired isInvalid={!isFormValid}>
+        <FormControl isRequired isInvalid={!passwordValidation.isValid}>
           <FormLabel>Password</FormLabel>
           <Input
             type="password"
