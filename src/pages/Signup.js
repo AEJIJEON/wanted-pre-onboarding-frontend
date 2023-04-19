@@ -1,16 +1,9 @@
-import {
-  Button,
-  Center,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Input,
-  VStack,
-} from "@chakra-ui/react";
+import { Button, Center, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../apis/api";
 import { EmailInput } from "../components/EmailInput";
+import { PasswordInput } from "../components/PasswordInput";
 import { useFormValidation } from "../hooks/useFormValidation";
 
 export const Signup = () => {
@@ -43,20 +36,12 @@ export const Signup = () => {
           onChange={(e) => setEmail(e.target.value)}
           errorMessage={emailValidation.errorMessage}
         />
-        <FormControl isRequired isInvalid={!passwordValidation.isValid}>
-          <FormLabel>Password</FormLabel>
-          <Input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            data-testid="password-input"
-          />
-          {passwordValidation.isValid ? null : (
-            <FormErrorMessage>
-              {passwordValidation.errorMessage}
-            </FormErrorMessage>
-          )}
-        </FormControl>
+        <PasswordInput
+          value={password}
+          isValid={passwordValidation.isValid}
+          onChange={(e) => setPassword(e.target.value)}
+          errorMessage={passwordValidation.errorMessage}
+        />
         <Button
           type="submit"
           data-testid="signup-button"
