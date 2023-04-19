@@ -47,6 +47,13 @@ const TodoItem = ({ todo, updateTodo }) => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [newTodo, setNewTodo] = useState(todo.todo);
 
+  const handleCheckBox = (checked) => {
+    updateTodo({
+      ...todo,
+      isCompleted: checked,
+    });
+  };
+
   return (
     <ListItem>
       {isEditMode ? (
@@ -54,12 +61,7 @@ const TodoItem = ({ todo, updateTodo }) => {
           <HStack flex="1">
             <Checkbox
               isChecked={todo.isCompleted}
-              onChange={(e) => {
-                updateTodo({
-                  ...todo,
-                  isCompleted: e.target.checked,
-                });
-              }}
+              onChange={(e) => handleCheckBox(e.target.checked)}
             />
             <Input
               value={newTodo}
@@ -94,12 +96,7 @@ const TodoItem = ({ todo, updateTodo }) => {
           <Checkbox
             flex="1"
             isChecked={todo.isCompleted}
-            onChange={(e) => {
-              updateTodo({
-                ...todo,
-                isCompleted: e.target.checked,
-              });
-            }}>
+            onChange={(e) => handleCheckBox(e.target.checked)}>
             {todo.todo}
           </Checkbox>
           <HStack>
