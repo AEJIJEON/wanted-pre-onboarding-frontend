@@ -1,6 +1,6 @@
 import { Button, Center, VStack } from "@chakra-ui/react";
 import { useState } from "react";
-import { api } from "../apis/api";
+import { apiClient } from "../apis/apiClient";
 import { EmailInput } from "../components/EmailInput";
 import { PasswordInput } from "../components/PasswordInput";
 import { useFormValidation } from "../hooks/useFormValidation";
@@ -20,7 +20,7 @@ export const Signin = () => {
 
   const submit = async () => {
     try {
-      const { access_token } = await api.postSignin({ email, password });
+      const { access_token } = await apiClient.postSignin({ email, password });
       localStorage.setItem("access_token", access_token);
       navigate("/todo");
     } catch (e) {

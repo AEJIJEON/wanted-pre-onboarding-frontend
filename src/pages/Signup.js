@@ -1,7 +1,7 @@
 import { Button, Center, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { api } from "../apis/api";
+import { apiClient } from "../apis/apiClient";
 import { EmailInput } from "../components/EmailInput";
 import { PasswordInput } from "../components/PasswordInput";
 import { useFormValidation } from "../hooks/useFormValidation";
@@ -20,7 +20,7 @@ export const Signup = () => {
 
   const submit = async () => {
     try {
-      const res = await api.postSignup({ email, password });
+      const res = await apiClient.postSignup({ email, password });
       navigate("/signin", { replace: true });
     } catch (e) {
       console.error(e);

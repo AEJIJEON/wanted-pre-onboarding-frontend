@@ -1,6 +1,6 @@
 import axios from "axios";
 
-class API {
+class ApiClient {
   #userToken;
   #options = {};
 
@@ -46,6 +46,6 @@ class API {
   }
 }
 
-export const api = new API({
+export const apiClient = new ApiClient({
   HOST: "https://www.pre-onboarding-selection-task.shop/",
 });
