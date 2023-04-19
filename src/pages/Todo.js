@@ -24,9 +24,19 @@ export const Todo = () => {
     }
   };
 
+  const refetchTodos = async () => {
+    try {
+      const todosData = await getTodos();
+      setTodos(todosData);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const createTodo = async (todo) => {
     try {
       await apiClient.createTodo({ todo: newTodo });
+      await refetchTodos();
     } catch (e) {
       console.error(e);
     }
