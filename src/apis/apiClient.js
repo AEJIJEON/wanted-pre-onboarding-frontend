@@ -8,6 +8,14 @@ class ApiClient {
     this.#options.HOST = options.HOST.replace(/(.*)(\/$)/, "$1"); // remove trailing slash
   }
 
+  get userToken() {
+    return this.#userToken;
+  }
+
+  set userToken(userToken) {
+    this.#userToken = userToken;
+  }
+
   async #request(method, path, data) {
     let url = `${this.#options.HOST}/${path}`;
 
