@@ -1,7 +1,8 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Signup } from "./pages/Signup";
 import { Signin } from "./pages/Signin";
+import { Signup } from "./pages/Signup";
+import { Todo } from "./pages/Todo";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: "/signin",
     element: <Signin />,
+  },
+  {
+    path: "/todo",
+    element: <Todo />,
   },
 ]);
 
