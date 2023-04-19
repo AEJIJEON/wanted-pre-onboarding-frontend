@@ -13,11 +13,20 @@ import { apiClient } from "../apis/apiClient";
 
 export const Todo = () => {
   const [todos, setTodos] = useState([]);
+  const [newTodo, setNewTodo] = useState("");
 
   const getTodos = async () => {
     try {
       const todosData = await apiClient.getTodos();
       setTodos(todosData);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const createTodo = async (todo) => {
+    try {
+      await apiClient.createTodo({ todo: newTodo });
     } catch (e) {
       console.error(e);
     }
@@ -31,8 +40,14 @@ export const Todo = () => {
     <Center w="100%" p="20px">
       <VStack spacing="30px">
         <HStack w="full">
-          <Input data-testid="new-todo-input" />
-          <Button data-testid="new-todo-add-button">추가</Button>
+          <Input
+            data-testid="new-todo-input"
+            value={newTodo}
+            onChange={(e) => setNewTodo(e.target.value)}
+          />
+          <Button data-testid="new-todo-add-button" onClick={createTodo}>
+            추가
+          </Button>
         </HStack>
         <UnorderedList w="500px" spacing="10px">
           {todos.map((todo) => (

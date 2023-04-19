@@ -58,6 +58,10 @@ class ApiClient {
   async getTodos() {
     return await this.#get("todos");
   }
+
+  async createTodo(data) {
+    return await this.#post("todos", data);
+  }
 }
 
 export const apiClient = new ApiClient({
